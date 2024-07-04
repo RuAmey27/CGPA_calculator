@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CGPA Calculator</title>
+</head>
+<body>
+<h1>CGPA Calculator</h1>
+
+<form action="/cgpa/calculate" method="post">
+    <label for="semester">Select Semester:</label>
+    <select id="semester" name="semesterId">
+        <option th:each="semester : ${semesters}" th:value="${semester.id}" th:text="${semester.name}"></option>
+    </select>
+
+    <label for="subject">Select Subject:</label>
+    <select id="subject" name="subjectId">
+        <option th:each="subject : ${subjects}" th:value="${subject.id}" th:text="${subject.name}"></option>
+    </select>
+
+    <label for="grade">Select Grade:</label>
+    <select id="grade" name="gradeId">
+        <option th:each="grade : ${grades}" th:value="${grade.id}" th:text="${grade.grade}"></option>
+    </select>
+
+    <button type="submit">Calculate CGPA</button>
+</form>
+
+<!-- Display departments and semesters for selection -->
+<ul>
+    <li th:each="department : ${departments}">
+        <span th:text="${department.name}"></span>
+    </li>
+</ul>
+</body>
+</html>
