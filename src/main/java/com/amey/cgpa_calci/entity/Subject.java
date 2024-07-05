@@ -2,10 +2,9 @@ package com.amey.cgpa_calci.entity;
 
 import jakarta.persistence.*;
 
-
-
 @Entity
 public class Subject {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,7 +16,23 @@ public class Subject {
     @JoinColumn(name = "semester_id")
     private Semester semester;
 
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
+
     // Getters and setters
+
+    public Subject() {
+    }
+
+    public Subject(String name, int credits, Semester semester, Department department) {
+        this.name = name;
+        this.credits = credits;
+        this.semester = semester;
+        this.department = department;
+    }
+
+
     // Getters and setters
     public Long getId() {
         return id;
@@ -50,4 +65,14 @@ public class Subject {
     public void setSemester(Semester semester) {
         this.semester = semester;
     }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+
 }

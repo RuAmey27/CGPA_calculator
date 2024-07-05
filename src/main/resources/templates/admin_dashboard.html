@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+</head>
+<body>
+<h1>Admin Dashboard</h1>
+
+<h2>Departments</h2>
+<ul>
+  <li th:each="department : ${departments}">
+    <span th:text="${department.name}"></span>
+  </li>
+</ul>
+
+<h2>Semesters</h2>
+<ul>
+  <li th:each="semester : ${semesters}">
+    <span th:text="${semester.name}"></span> - <span th:text="${semester.department.name}"></span>
+  </li>
+</ul>
+
+<h2>Subjects</h2>
+<ul>
+  <li th:each="subject : ${subjects}">
+    <span th:text="${subject.name}"></span> - <span th:text="${subject.credits}"></span> credits - <span th:text="${subject.semester.name}"></span>
+  </li>
+</ul>
+
+<a th:href="@{/admin/add-department}">Add Department</a><br>
+<a th:href="@{/admin/add-semester}">Add Semester</a><br>
+<a th:href="@{/admin/add-subject}">Add Subject</a><br>
+</body>
+</html>

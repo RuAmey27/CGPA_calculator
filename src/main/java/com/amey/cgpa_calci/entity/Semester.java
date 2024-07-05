@@ -1,8 +1,6 @@
 package com.amey.cgpa_calci.entity;
+
 import jakarta.persistence.*;
-
-
-
 
 @Entity
 public class Semester {
@@ -17,6 +15,8 @@ public class Semester {
     private Department department;
 
     // Getters and setters
+    public Semester() {
+    }
     public Long getId() {
         return id;
     }

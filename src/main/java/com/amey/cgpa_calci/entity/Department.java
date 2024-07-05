@@ -2,8 +2,6 @@ package com.amey.cgpa_calci.entity;
 
 import jakarta.persistence.*;
 
-
-
 @Entity
 public class Department {
     @Id
@@ -12,7 +10,8 @@ public class Department {
 
     private String name;
 
-    // Getters and setters
+    public Department() {
+    }
     // Getters and setters
     public Long getId() {
         return id;

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Semester</title>
+</head>
+<body>
+<h1>Add Semester</h1>
+
+<form action="/admin/add-semester" method="post">
+  <label for="department">Select Department:</label>
+  <select id="department" name="departmentId">
+    <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
+  </select>
+
+  <label for="semesterName">Semester Name:</label>
+  <input type="text" id="semesterName" name="semesterName" required>
+
+  <button type="submit">Add Semester</button>
+</form>
+</body>
+</html>

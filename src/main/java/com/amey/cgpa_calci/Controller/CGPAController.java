@@ -6,67 +6,74 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.*;
 
 @Controller
 @RequestMapping("/cgpa")
 public class CGPAController {
 
-    @Autowired
-    private DepartmentRepository departmentRepository;
+    private static final Logger logger = LoggerFactory.getLogger(CGPAController.class);
+    private final DepartmentRepository departmentRepository;
+    private final SemesterRepository semesterRepository;
+    private final SubjectRepository subjectRepository;
+    private final GradeRepository gradeRepository;
 
     @Autowired
-    private SemesterRepository semesterRepository;
-
-    @Autowired
-    private SubjectRepository subjectRepository;
-
-    @Autowired
-    private GradeRepository gradeRepository;
+    public CGPAController(DepartmentRepository departmentRepository, SemesterRepository semesterRepository,
+                          SubjectRepository subjectRepository, GradeRepository gradeRepository) {
+        this.departmentRepository = departmentRepository;
+        this.semesterRepository = semesterRepository;
+        this.subjectRepository = subjectRepository;
+        this.gradeRepository = gradeRepository;
+    }
 
     @GetMapping("/calculator")
     public String showCGPACalculator(Model model) {
         model.addAttribute("departments", departmentRepository.findAll());
         model.addAttribute("semesters", semesterRepository.findAll());
-        model.addAttribute("subjects", subjectRepository.findAll());
-        model.addAttribute("grades", gradeRepository.findAll());
         return "cgpa_calculator";
     }
 
-    // Handle form submission to calculate CGPA
-    @PostMapping("/calculate")
-    public String calculateCGPA(@RequestParam Long semesterId, @RequestParam Long subjectId, Model model) {
-        // Retrieve subjects and grades for selected semester and subject
-        List<Subject> subjects = subjectRepository.findBySemesterId(semesterId);
-        List<Grade> grades = gradeRepository.findBySubjectId(subjectId);
+    @GetMapping("/subjects")
+    @ResponseBody
+    public List<Subject> fetchSubjects(@RequestParam Long departmentId, @RequestParam Long semesterId) {
+        logger.info("Fetching subjects for Department ID: {} and Semester ID: {}", departmentId, semesterId);
+        return subjectRepository.findByDepartmentIdAndSemesterId(departmentId, semesterId);
+    }
 
-        // Perform CGPA calculation logic
+    @PostMapping("/calculate")
+    public String calculateCGPA(@RequestParam Long departmentId, @RequestParam Long semesterId,
+                                @RequestParam Map<String, String> allParams, Model model) {
+        List<Subject> subjects = subjectRepository.findByDepartmentIdAndSemesterId(departmentId, semesterId);
         double totalCredits = 0;
         double totalGradePoints = 0;
 
         for (Subject subject : subjects) {
-            Grade grade = grades.stream().filter(g -> g.getSubject().getId().equals(subject.getId())).findFirst().orElse(null);
-            if (grade != null) {
-                double gradePoint = getGradePoint(grade.getGrade());
+            String gradeValue = allParams.get("grade_" + subject.getId());
+            if (gradeValue != null && !gradeValue.isEmpty()) {
+                double gradePoint = getGradePoint(gradeValue);
                 totalGradePoints += gradePoint * subject.getCredits();
                 totalCredits += subject.getCredits();
             }
         }
 
-        double cgpa = totalGradePoints / totalCredits;
+        double cgpa = (totalCredits > 0) ? (totalGradePoints / totalCredits) : 0.0;
         model.addAttribute("cgpa", cgpa);
-
         return "cgpa_result";
     }
 
     private double getGradePoint(String grade) {
-        switch (grade) {
-            case "A": return 4.0;
-            case "B": return 3.0;
-            case "C": return 2.0;
-            case "D": return 1.0;
-            default: return 0.0;
+        switch (grade.toUpperCase()) {
+            case "A+": return 10;
+            case "A": return 9;
+            case "B+": return 8;
+            case "B": return 7;
+            case "C": return 6;
+            case "D": return 5;
+            case "E": return 4;
+            default: return 0;
         }
     }
 }
