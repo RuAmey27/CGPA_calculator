@@ -9,6 +9,7 @@ import com.amey.cgpa_calci.repository.SubjectRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+//import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 @RequestMapping("/admin")
@@ -29,14 +30,14 @@ public class AdminController {
         model.addAttribute("departments", departmentRepository.findAll());
         model.addAttribute("semesters", semesterRepository.findAll());
         model.addAttribute("subjects", subjectRepository.findAll());
-        return "admin_dashboard";
+        return "admin/admin_dashboard";
     }
 
     @GetMapping("/add-subject")
     public String showAddSubjectForm(Model model) {
         model.addAttribute("departments", departmentRepository.findAll());
         model.addAttribute("semesters", semesterRepository.findAll());
-        return "add_subject";
+        return "admin/add_subject";
     }
 
     @PostMapping("/add-subject")
@@ -57,7 +58,7 @@ public class AdminController {
     @GetMapping("/add-semester")
     public String showAddSemesterForm(Model model) {
         model.addAttribute("departments", departmentRepository.findAll());
-        return "add_semester";
+        return "admin/add_semester";
     }
 
     @PostMapping("/add-semester")
@@ -74,7 +75,7 @@ public class AdminController {
 
     @GetMapping("/add-department")
     public String showAddDepartmentForm(Model model) {
-        return "add_department";
+        return "admin/add_department";
     }
 
     @PostMapping("/add-department")

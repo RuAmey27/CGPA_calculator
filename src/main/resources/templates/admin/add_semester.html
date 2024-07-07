@@ -1,0 +1,68 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Add Semester</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Add Semester</h1>-->
+
+<!--  <form action="/admin/add-semester" method="post" th:action="@{/admin/add-semester}" >-->
+<!--    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+<!--  <label for="department">Select Department:</label>-->
+<!--  <select id="department" name="departmentId">-->
+<!--    <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"></option>-->
+<!--  </select>-->
+
+<!--  <label for="semesterName">Semester Name:</label>-->
+<!--  <input type="text" id="semesterName" name="semesterName" required>-->
+
+<!--  <button type="submit">Add Semester</button>-->
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Semester</title>
+  <!-- Include Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<div class="max-w-2xl mx-auto py-12">
+  <h1 class="text-3xl font-bold mb-8">Add Semester</h1>
+
+    <form action="#" th:action="@{/admin/add-semester}" method="post" class="space-y-4">
+<!--    action="/admin/add-semester"-->
+    <!-- CSRF Token -->
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+    <!-- Department Selection -->
+    <div>
+      <label for="department" class="block text-sm font-medium text-gray-700">Select Department:</label>
+      <select id="department" name="departmentId"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+        <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
+      </select>
+    </div>
+
+    <!-- Semester Name Field -->
+    <div>
+      <label for="semesterName" class="block text-sm font-medium text-gray-700">Semester Name:</label>
+      <input type="text" id="semesterName" name="semesterName" required
+             class="mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+    </div>
+
+    <!-- Submit Button -->
+    <div>
+      <button type="submit"
+              class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Add Semester
+      </button>
+    </div>
+  </form>
+</div>
+</body>
+</html>

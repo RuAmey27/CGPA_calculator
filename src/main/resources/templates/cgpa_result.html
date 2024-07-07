@@ -4,12 +4,22 @@
   <meta charset="UTF-8">
   <title>CGPA Result</title>
   <link rel="stylesheet" href="/css/styles.css">
+  <!-- Include Tailwind CSS CDN link or local file -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-<h1>CGPA Result</h1>
-<div>
-  <p>Your calculated CGPA is: <span th:text="${cgpa}"></span></p>
-  <a href="/cgpa/calculator">Back to CGPA Calculator</a>
+<body class="bg-gray-200 min-h-screen flex items-center justify-center">
+<div class="max-w-md bg-white p-6 rounded-lg shadow-md">
+  <h1 class="text-3xl font-bold mb-6 text-center">CGPA Result</h1>
+
+  <!-- Display CGPA Result -->
+  <div class="mb-4">
+    <p class="text-lg mb-2">Your calculated CGPA is: <span class="font-bold text-indigo-600" th:text="${cgpa}"></span></p>
+  </div>
+
+  <!-- Back to CGPA Calculator Link -->
+  <div class="mt-4 text-center">
+    <a th:href="@{/cgpa/calculator}" class="text-indigo-600 hover:underline">Back to CGPA Calculator</a>
+  </div>
 </div>
 </body>
 </html>

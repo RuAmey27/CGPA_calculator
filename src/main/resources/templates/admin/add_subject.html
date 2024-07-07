@@ -1,0 +1,95 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Add Subject</title>-->
+<!--</head>-->
+
+<!--<body>-->
+<!--<h1>Add Subject</h1>-->
+
+<!--<form action="/admin/add-subject" method="post" th:action="@{/admin/add-subject}" >-->
+<!--  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
+<!--  <label for="department">Select Department:</label>-->
+<!--  <select id="department" name="departmentId">-->
+<!--    <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"></option>-->
+<!--  </select>-->
+
+<!--  <label for="semester">Select Semester:</label>-->
+<!--  <select id="semester" name="semesterId">-->
+<!--    <option th:each="semester : ${semesters}" th:value="${semester.id}" th:text="${semester.name}"></option>-->
+<!--  </select>-->
+
+<!--  <label for="subjectName">Subject Name:</label>-->
+<!--  <input type="text" id="subjectName" name="subjectName" required>-->
+
+<!--  <label for="credits">Credits:</label>-->
+<!--  <input type="number" id="credits" name="credits" required>-->
+
+<!--  <button type="submit">Add Subject</button>-->
+<!--</form>-->
+
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Subject</title>
+  <!-- Include Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+<div class="max-w-2xl mx-auto py-12">
+  <h1 class="text-3xl font-bold mb-8">Add Subject</h1>
+
+    <form action="#" th:action="@{/admin/add-subject}" method="post" class="space-y-4">
+<!--    action="/admin/add-subject"-->
+    <!-- CSRF Token -->
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+    <!-- Department Selection -->
+    <div>
+      <label for="department" class="block text-sm font-medium text-gray-700">Select Department:</label>
+      <select id="department" name="departmentId"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+        <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}"></option>
+      </select>
+    </div>
+
+    <!-- Semester Selection -->
+    <div>
+      <label for="semester" class="block text-sm font-medium text-gray-700">Select Semester:</label>
+      <select id="semester" name="semesterId"
+              class="mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+        <option th:each="semester : ${semesters}" th:value="${semester.id}" th:text="${semester.name}"></option>
+      </select>
+    </div>
+
+    <!-- Subject Name Field -->
+    <div>
+      <label for="subjectName" class="block text-sm font-medium text-gray-700">Subject Name:</label>
+      <input type="text" id="subjectName" name="subjectName" required
+             class="mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+    </div>
+
+    <!-- Credits Field -->
+    <div>
+      <label for="credits" class="block text-sm font-medium text-gray-700">Credits:</label>
+      <input type="number" id="credits" name="credits" required
+             class="mt-1 block w-full px-3 py-2 border border-gray-300 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+    </div>
+
+    <!-- Submit Button -->
+    <div>
+      <button type="submit"
+              class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        Add Subject
+      </button>
+    </div>
+  </form>
+
+</div>
+</body>
+</html>
